@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AstracatNScloud</title>
+    <!-- CSS only -->
+    <link href="{{ base_url_prefix }}/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ base_url_prefix }}/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Astracat Style -->
+    <link rel="stylesheet" href="{{ base_url_prefix }}/templates/astracat/style/astracat.css?time={{ file_version }}" type="text/css">
+
+    <script>
+        window.BASE_URL_PREFIX = '{{ base_url_prefix }}';
+    </script>
+</head>
+<body class="dark-theme">
+
+{% if user_logged_in %}
+<!-- Sidebar Layout -->
+<div class="d-flex" style="min-height: 100vh;">
+    <!-- Left Sidebar -->
+    <nav class="sidebar border-end p-3 d-flex flex-column" style="width: 280px; background-color: hsl(var(--card));">
+        <a href="{{ base_url_prefix }}/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none text-white">
+            <span class="fs-4 fw-bold">AstracatNScloud</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="{{ base_url_prefix }}/" class="nav-link {{ current_page == 'index' ? 'active' : '' }}" aria-current="page">
+                    <i class="bi bi-speedometer2 me-2"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item mt-3 text-muted text-uppercase small fw-bold">DNS Management</li>
+
+            <li>
+                <a href="{{ base_url_prefix }}/zones/forward" class="nav-link {{ current_page == 'list_forward_zones' ? 'active' : '' }}">
+                    <i class="bi bi-globe me-2"></i>
+                    Domains
+                </a>
+            </li>
+
+            {% if perm_zone_master_add %}
+            <li>
+                <a href="{{ base_url_prefix }}/zones/add/master" class="nav-link {{ current_page == 'add_zone_master' ? 'active' : '' }}">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Add Domain
+                </a>
+            </li>
+            {% endif %}
+
+            {% if perm_is_godlike %}
+            <li class="nav-item mt-3 text-muted text-uppercase small fw-bold">Administration</li>
+            <li>
+                <a href="{{ base_url_prefix }}/users" class="nav-link {{ current_page == 'users' ? 'active' : '' }}">
+                    <i class="bi bi-people me-2"></i>
+                    Users
+                </a>
+            </li>
+            <li>
+                <a href="{{ base_url_prefix }}/supermasters" class="nav-link {{ current_page == 'list_supermasters' ? 'active' : '' }}">
+                   <i class="bi bi-hdd-network me-2"></i>
+                   Supermasters
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-white" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-2 fs-5"></i>
+                <strong>{{ user_name }}</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="{{ base_url_prefix }}/user/preferences">Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ base_url_prefix }}/logout">Sign out</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 bg-background">
+        <header class="p-3 border-bottom d-flex justify-content-between align-items-center">
+             <h1 class="h4 mb-0">{{ iface_title }}</h1>
+        </header>
+
+        <div class="p-4">
+            {% if system_messages is defined and system_messages %}
+                {% for message in system_messages %}
+                <div class="alert alert-{{ message.type == 'error' ? 'danger' : message.type }} alert-dismissible fade show" role="alert">
+                    {{ message.content | raw }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}

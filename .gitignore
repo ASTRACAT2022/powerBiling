@@ -6,6 +6,7 @@
 /templates/default/custom/*
 !/templates/default
 !/templates/modern
+!/templates/astracat
 !/templates/emails
 /templates/emails/custom/*
 !/templates/emails/custom/README.md

@@ -10,6 +10,11 @@ login:
   controller: Poweradmin\Application\Controller\LoginController::run
   methods: [GET, POST]
 
+register:
+  path: /register
+  controller: Poweradmin\Application\Controller\RegisterController::run
+  methods: [GET, POST]
+
 logout:
   path: /logout
   controller: Poweradmin\Application\Controller\LogoutController::run
