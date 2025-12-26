@@ -1,0 +1,214 @@
+:root {
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+
+  --popover: 224 71% 4%;
+  --popover-foreground: 215 20.2% 65.1%;
+
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+
+  --ring: 216 34% 17%;
+
+  --radius: 0.5rem;
+}
+
+body.dark-theme {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+}
+
+.bg-background {
+    background-color: hsl(var(--background)) !important;
+}
+
+.text-foreground {
+    color: hsl(var(--foreground)) !important;
+}
+
+/* Cards */
+.card {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+}
+
+.card-header {
+    border-bottom: 1px solid hsl(var(--border));
+    background-color: transparent;
+}
+
+.card-footer {
+    border-top: 1px solid hsl(var(--border));
+    background-color: transparent;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+    color: hsl(var(--primary-foreground));
+}
+
+.btn-secondary {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border: 1px solid hsl(var(--border));
+}
+
+.btn-secondary:hover {
+    background-color: hsl(var(--secondary) / 0.8);
+    color: hsl(var(--secondary-foreground));
+}
+
+.btn-outline-secondary {
+    border-color: hsl(var(--border));
+    color: hsl(var(--foreground));
+}
+
+.btn-outline-secondary:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    border-color: hsl(var(--border));
+}
+
+/* Forms */
+.form-control, .form-select {
+    background-color: transparent;
+    border-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: transparent;
+    border-color: hsl(var(--ring));
+    color: hsl(var(--foreground));
+    box-shadow: 0 0 0 2px hsl(var(--ring) / 0.3);
+}
+
+/* Tables */
+.table {
+    color: hsl(var(--foreground));
+    --bs-table-bg: transparent;
+    --bs-table-border-color: hsl(var(--border));
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent;
+    color: hsl(var(--foreground));
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: hsl(var(--muted));
+    color: hsl(var(--foreground));
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: hsl(var(--card)) !important;
+    border-right: 1px solid hsl(var(--border)) !important;
+}
+
+.sidebar .nav-link {
+    color: hsl(var(--muted-foreground));
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.sidebar hr {
+    border-color: hsl(var(--border));
+}
+
+/* Alerts */
+.alert-success {
+    background-color: hsl(142 76% 36% / 0.2);
+    color: hsl(142 76% 36%);
+    border-color: hsl(142 76% 36% / 0.3);
+}
+
+.alert-danger {
+    background-color: hsl(0 84% 60% / 0.1);
+    color: hsl(0 84% 60%);
+    border-color: hsl(0 84% 60% / 0.2);
+}
+
+.alert-warning {
+    background-color: hsl(48 96% 89% / 0.1);
+    color: hsl(48 96% 89%);
+    border-color: hsl(48 96% 89% / 0.2);
+}
+
+.alert-info {
+    background-color: hsl(217 91% 60% / 0.1);
+    color: hsl(217 91% 60%);
+    border-color: hsl(217 91% 60% / 0.2);
+}
+
+/* Dropdown */
+.dropdown-menu-dark {
+    background-color: hsl(var(--popover));
+    border-color: hsl(var(--border));
+}
+
+.dropdown-item {
+    color: hsl(var(--popover-foreground));
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.dropdown-divider {
+    border-top-color: hsl(var(--border));
+}
+
+/* Badges */
+.badge {
+    border-radius: var(--radius);
+}
+.bg-primary {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+}
+.bg-secondary {
+    background-color: hsl(var(--secondary)) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: hsl(var(--foreground));
+    font-weight: 600;
+}
+
+.text-muted {
+    color: hsl(var(--muted-foreground)) !important;
+}

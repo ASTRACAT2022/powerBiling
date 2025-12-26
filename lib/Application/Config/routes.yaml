@@ -68,6 +68,12 @@ user_agreement:
   controller: Poweradmin\Application\Controller\UserAgreementController::run
   methods: [GET, POST]
 
+# Admin Dashboard
+admin_dashboard:
+  path: /admin
+  controller: Poweradmin\Application\Controller\AdminDashboardController::run
+  methods: [GET]
+
 # User Management
 users:
   path: /users

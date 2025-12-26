@@ -1,0 +1,127 @@
+{% include "header.html" %}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="h3 mb-3">System Control Plane</h1>
+    </div>
+</div>
+
+<!-- Stats Overview -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted text-uppercase small">Total Zones</h6>
+                <h2 class="card-title mb-0">{{ total_zones }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+             <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted text-uppercase small">Total Records</h6>
+                <h2 class="card-title mb-0">{{ total_records }}</h2>
+            </div>
+        </div>
+    </div>
+     <div class="col-md-3">
+        <div class="card">
+             <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted text-uppercase small">Users</h6>
+                <h2 class="card-title mb-0">{{ total_users }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+             <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted text-uppercase small">PowerDNS Status</h6>
+                <h2 class="card-title mb-0 text-success">
+                    <i class="bi bi-check-circle-fill"></i> Operational
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+     <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">System Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ base_url_prefix }}/tools/pdns-status" class="btn btn-secondary text-start">
+                        <i class="bi bi-activity me-2"></i> View PowerDNS Status Details
+                    </a>
+                    <a href="{{ base_url_prefix }}/users" class="btn btn-secondary text-start">
+                        <i class="bi bi-people me-2"></i> Manage Users
+                    </a>
+                    <a href="{{ base_url_prefix }}/zones/logs" class="btn btn-secondary text-start">
+                        <i class="bi bi-journal-text me-2"></i> View Zone Audit Logs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+         <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Maintenance</h5>
+            </div>
+            <div class="card-body">
+                 <div class="d-grid gap-2">
+                    <a href="{{ base_url_prefix }}/tools/database-consistency" class="btn btn-outline-warning text-start">
+                        <i class="bi bi-shield-check me-2"></i> Check Database Consistency
+                    </a>
+                     <a href="{{ base_url_prefix }}/supermasters" class="btn btn-secondary text-start">
+                        <i class="bi bi-hdd-network me-2"></i> Configure Supermasters
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Recent Zone Activity</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">Zone</th>
+                                <th>Type</th>
+                                <th>User</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for zone in recent_zones %}
+                            <tr>
+                                <td class="ps-4"><a href="{{ base_url_prefix }}/zones/{{ zone.id }}/edit" class="text-decoration-none fw-bold">{{ zone.name }}</a></td>
+                                <td><span class="badge bg-secondary">{{ zone.type }}</span></td>
+                                <td>{{ zone.owner }}</td>
+                                <td class="text-muted small">Recently</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">No recent zones found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}

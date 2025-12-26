@@ -10,6 +10,7 @@
 
     <!-- Astracat Style -->
     <link rel="stylesheet" href="{{ base_url_prefix }}/templates/astracat/style/astracat.css?time={{ file_version }}" type="text/css">
+    <link rel="stylesheet" href="{{ base_url_prefix }}/templates/astracat/style/shadcn.css?time={{ file_version }}" type="text/css">
 
     <script>
         window.BASE_URL_PREFIX = '{{ base_url_prefix }}';
@@ -55,6 +56,12 @@
             {% if perm_is_godlike %}
             <li class="nav-item mt-3 text-muted text-uppercase small fw-bold">Administration</li>
             <li>
+                 <a href="{{ base_url_prefix }}/admin" class="nav-link {{ current_page == 'admin_dashboard' ? 'active' : '' }}">
+                    <i class="bi bi-cpu me-2"></i>
+                    Control Plane
+                </a>
+            </li>
+            <li>
                 <a href="{{ base_url_prefix }}/users" class="nav-link {{ current_page == 'users' ? 'active' : '' }}">
                     <i class="bi bi-people me-2"></i>
                     Users
@@ -97,3 +104,19 @@
                 </div>
                 {% endfor %}
             {% endif %}
+{% else %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            {% if system_messages is defined and system_messages %}
+                {% for message in system_messages %}
+                <div class="alert alert-{{ message.type == 'error' ? 'danger' : message.type }} alert-dismissible fade show" role="alert">
+                    {{ message.content | raw }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endif %}
