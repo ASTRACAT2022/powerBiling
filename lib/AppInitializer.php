@@ -70,6 +70,11 @@ class AppInitializer
      */
     private function checkConfigurationFile(): void
     {
+        // Support for test environment configuration
+        if (getenv('APP_ENV') === 'test' && file_exists('config/settings.test.php')) {
+            return;
+        }
+
         if (!file_exists('config/settings.php')) {
             $messageService = new MessageService();
             $messageService->displayHtmlError(

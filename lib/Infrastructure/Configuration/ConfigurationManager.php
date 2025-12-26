@@ -91,6 +91,15 @@ class ConfigurationManager implements ConfigurationInterface
 
         // Try to load user configuration file
         $newConfigFile = __DIR__ . '/../../../config/settings.php';
+
+        // Support for test environment configuration
+        if (getenv('APP_ENV') === 'test') {
+            $testConfigFile = __DIR__ . '/../../../config/settings.test.php';
+            if (file_exists($testConfigFile)) {
+                $newConfigFile = $testConfigFile;
+            }
+        }
+
         $newConfigExists = false;
 
         if (file_exists($newConfigFile)) {

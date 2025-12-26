@@ -26,6 +26,8 @@
     </div>
 </div>
 
+{% include "header.html" %}
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ base_url_prefix }}/">{% trans %}Home{% endtrans %}</a></li>
@@ -47,64 +49,67 @@
     </ol>
 </nav>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-header py-3 d-flex justify-content-between align-items-center">
-        <strong>
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title mb-0">
             <i class="bi bi-shield-lock me-2"></i>
             {% if idn_zone_name %}
-            {% trans %}DNSSEC keys for zone{% endtrans %} "{{ idn_zone_name }}" ({{ domain_name }})
+            {% trans %}DNSSEC Configuration for{% endtrans %} {{ idn_zone_name }}
             {% else %}
-            {% trans %}DNSSEC keys for zone{% endtrans %} "{{ domain_name }}"
+            {% trans %}DNSSEC Configuration for{% endtrans %} {{ domain_name }}
             {% endif %}
-        </strong>
-        <div>
+        </h5>
+        <div class="d-flex gap-2">
             <a href="{{ base_url_prefix }}/zones/{{ zone_id }}/dnssec/keys/add" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus-circle text-white me-1"></i>{% trans %}Add new key{% endtrans %}
+                <i class="bi bi-plus-circle me-1"></i>{% trans %}Add Key{% endtrans %}
             </a>
             <a href="{{ base_url_prefix }}/zones/{{ zone_id }}/dnssec/ds-dnskey" class="btn btn-secondary btn-sm">
-                <i class="bi bi-key text-white me-1"></i>{% trans %}Show DS and DNSKEY{% endtrans %}
+                <i class="bi bi-key me-1"></i>{% trans %}View DS Records{% endtrans %}
             </a>
             {% if perm_edit != "none" %}
             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#unsignZoneModal">
-                <i class="bi bi-shield-x text-white me-1"></i>{% trans %}Unsign zone{% endtrans %}
+                <i class="bi bi-shield-x me-1"></i>{% trans %}Disable DNSSEC{% endtrans %}
             </button>
             {% endif %}
         </div>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-sm mb-0">
-                <thead class="table-light">
+            <table class="table table-hover mb-0">
+                <thead>
                     <tr>
-                        <th>{% trans %}ID{% endtrans %}</th>
+                        <th class="ps-4">{% trans %}ID{% endtrans %}</th>
                         <th>{% trans %}Type{% endtrans %}</th>
                         <th>{% trans %}Tag{% endtrans %}</th>
                         <th>{% trans %}Algorithm{% endtrans %}</th>
                         <th>{% trans %}Bits{% endtrans %}</th>
-                        <th>{% trans %}Active{% endtrans %}</th>
-                        <th class="text-end">{% trans %}Actions{% endtrans %}</th>
+                        <th>{% trans %}Status{% endtrans %}</th>
+                        <th class="text-end pe-4">{% trans %}Actions{% endtrans %}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% if keys is empty %}
                     <tr>
-                        <td colspan="7" class="text-center py-3">{% trans %}No DNSSEC keys found for this zone{% endtrans %}</td>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="bi bi-shield-slash fs-1 d-block mb-2"></i>
+                            {% trans %}No DNSSEC keys found. Add a key to enable DNSSEC.{% endtrans %}
+                        </td>
                     </tr>
                     {% else %}
                     {% for item in keys %}
                     {% if item[5] %}
                     {% set button_title = 'Deactivate key' %}
-                    {% set active = 'Yes' %}
+                    {% set active = 'Active' %}
                     {% set button_icon = 'pause-circle' %}
                     {% else %}
                     {% set button_title = 'Activate key' %}
-                    {% set active = 'No' %}
+                    {% set active = 'Inactive' %}
                     {% set button_icon = 'play-circle' %}
                     {% endif %}
                     <tr>
-                        <td>{{ item[0] }}</td>
+                        <td class="ps-4">{{ item[0] }}</td>
                         <td><span class="badge bg-secondary">{{ item[1] }}</span></td>
-                        <td>{{ item[2] }}</td>
+                        <td><code class="text-muted">{{ item[2] }}</code></td>
                         <td>{{ algorithms[item[3]] }}</td>
                         <td>{{ item[4] }}</td>
                         <td>
@@ -114,13 +119,13 @@
                             <span class="badge bg-warning text-dark">{{ active|trans }}</span>
                             {% endif %}
                         </td>
-                        <td class="text-end">
-                            <div class="gap-2">
-                                <a class="btn btn-sm btn-outline-primary" href="{{ base_url_prefix }}/zones/{{ zone_id }}/dnssec/keys/{{ item[0] }}/edit" title="{% if item[5] %}{% trans %}Deactivate this key{% endtrans %}{% else %}{% trans %}Activate this key{% endtrans %}{% endif %}">
-                                    <i class="bi bi-{{ button_icon }} text-primary"></i> <span class="d-none d-md-inline text-primary">{% if item[5] %}{% trans %}Deactivate{% endtrans %}{% else %}{% trans %}Activate{% endtrans %}{% endif %}</span>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ base_url_prefix }}/zones/{{ zone_id }}/dnssec/keys/{{ item[0] }}/edit" title="{% if item[5] %}{% trans %}Deactivate{% endtrans %}{% else %}{% trans %}Activate{% endtrans %}{% endif %}">
+                                    <i class="bi bi-{{ button_icon }}"></i>
                                 </a>
-                                <a class="btn btn-sm btn-outline-danger" href="{{ base_url_prefix }}/zones/{{ zone_id }}/dnssec/keys/{{ item[0] }}/delete">
-                                    <i class="bi bi-trash text-danger"></i> <span class="d-none d-md-inline text-danger">{% trans %}Delete{% endtrans %}</span>
+                                <a class="btn btn-sm btn-outline-danger" href="{{ base_url_prefix }}/zones/{{ zone_id }}/dnssec/keys/{{ item[0] }}/delete" title="Delete">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </div>
                         </td>
@@ -132,3 +137,5 @@
         </div>
     </div>
 </div>
+
+{% include "footer.html" %}
