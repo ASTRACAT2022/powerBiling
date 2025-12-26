@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Login - AstracatNScloud{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="card login-card shadow-lg">
+        <div class="card-body p-5">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold">AstracatNScloud</h3>
+                <p class="text-muted">Sign in to your DNS console</p>
+            </div>
+
+            <form method="post" action="{{ base_url_prefix }}/login">
+                <input type="hidden" name="token" value="{{ token }}">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+                </div>
+            </form>
+
+            <div class="mt-4 text-center">
+                <p class="mb-0">Don't have an account? <a href="{{ base_url_prefix }}/register" class="fw-bold">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-3 text-muted">
+        <small>&copy; {{ "now"|date("Y") }} AstracatNScloud. All rights reserved.</small>
+    </div>
+</div>
+{% endblock %}

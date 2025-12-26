@@ -1,0 +1,143 @@
+:root {
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+
+  --popover: 224 71% 4%;
+  --popover-foreground: 215 20.2% 65.1%;
+
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+
+  --ring: 216 34% 17%;
+
+  --radius: 0.5rem;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Override Bootstrap Defaults */
+.navbar {
+  background-color: hsl(var(--background)) !important;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.navbar-brand {
+  color: hsl(var(--foreground)) !important;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: hsl(var(--foreground)) !important;
+}
+
+.card {
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+}
+
+.card-header {
+  border-bottom: 1px solid hsl(var(--border));
+  background-color: transparent;
+}
+
+.table {
+  color: hsl(var(--foreground));
+  --bs-table-bg: transparent;
+  --bs-table-border-color: hsl(var(--border));
+}
+
+.table thead th {
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+}
+
+.form-control, .form-select {
+  background-color: hsl(var(--input));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: hsl(var(--input));
+  color: hsl(var(--foreground));
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+}
+
+.btn-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: hsl(210 40% 90%);
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: 1px solid hsl(var(--border));
+}
+
+.btn-secondary:hover {
+  background-color: hsl(var(--accent));
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+
+/* Login Page specific */
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 10vh;
+}
+
+.login-card {
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+}
